@@ -1,0 +1,239 @@
+Node.jsプログラムを書いてみよう
+==================================================
+
+これから、以下の2つのプログラムを作成します
+
+- search.js　→ドローンのUUID調べるプログラム
+- controller.js　→ドローンを実際に操作するプログラム
+
+
+作業ディレクトリを作成
+-------------------------------------------
+
+Desktopに作業ディレクトリを作成します
+
+cdコマンドでDesktopに移動します
+
+下記コマンドを実行してください
+
+.. code-block:: none
+
+  cd Desktop
+
+mkdirコマンドでdroneディレクトリを作成して、その中に移動します
+
+下記コマンドを実行してください
+
+.. code-block:: none
+
+  mkdir dron
+  cd dron
+
+このdroneディレクトリ内でプログラムを作っていきましょう
+
+search.jsの作成
+-------------------------------------------
+
+以下のコードをテキストエディタで入力し、「search.js」として保存します。
+
+.. code-block:: js
+
+  'use strict';
+
+  // モジュールの読み込み
+  const noble = require('noble');
+
+  // 変数の設定
+  const knownDevices = [];
+
+  //BLE デバイス検索をする関数
+  const discovered = (peripheral) => {
+      const device = {
+          name: peripheral.advertisement.localName,
+          uuid: peripheral.uuid,
+          rssi: peripheral.rssi
+      };
+
+      knownDevices.push(device);
+
+      console.log(`${knownDevices.length}:${device.name}(${device.uuid}) RSSI${device.rssi}`);
+
+  }
+
+  // BLE 検索開始
+  const scanStart = () => {
+      noble.startScanning();
+      noble.on('discover', discovered);
+  }
+
+  // BLE 検索開始
+  if(noble.state === 'poweredOn') {
+    scanStart();
+  } else {
+    noble.on('stateChange', scanStart);
+  }
+
+
+controller.jsの作成
+-------------------------------------------
+
+以下のコードをテキストエディタで入力し、「controller.js」として保存します。
+
+.. code-block:: js
+
+  'use strict';
+
+  // モジュールの読み込み
+  var RollingSpider = require("rolling-spider");
+  var keypress = require('keypress');
+  keypress(process.stdin);
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
+
+  // 変数の設定
+  var ACTIVE = true;
+  var STEPS = 5;
+  var temporal = require('temporal');
+  //DronのUUIDに書き換えましょう
+  var d = new RollingSpider({ uuid: "*****************"});
+
+  // キー操作後に少しのあいだ入力を受け付けないようにする
+  function cooldown() {
+    ACTIVE = false;
+    setTimeout(function() {
+      ACTIVE = true;
+    }, STEPS);
+  }
+
+  // ドローンとの接続
+  d.connect(function() {
+    d.setup(function() {　　
+      console.log('Configured for Rolling Spider! ', d.name);　　
+      d.flatTrim();　　
+      d.startPing();　　
+      d.flatTrim();　　
+      setTimeout(function() {　　　
+        console.log(d.name + ' => Connected!!');　　　
+        ACTIVE = true;　　
+      }, 1000);　
+    });
+  });
+
+  // キーボードからの入力にイベント
+  process.stdin.on('keypress', function(ch, key) {
+    console.log('got "keypress" => ', key);　
+    if (ACTIVE && key) {
+
+      // 離陸
+      if (key.name === 't') {
+        console.log('takeoff');
+        d.takeOff();　
+
+      // 前進　
+      } else if (key.name === 'w') {
+        console.log('forward');
+        d.forward({ steps: STEPS });
+        cooldown();　
+      }
+
+      // 後退
+      else if (key.name === 's') {
+        console.log('backward');
+        d.backward({ steps: STEPS });
+        cooldown();
+      }
+
+      // 左水平移動
+      else if (key.name === 'a') {
+        console.log('tiltLeft');
+        d.tiltLeft({ steps: STEPS });
+        cooldown();　
+      }
+
+      // 右水平移動
+      else if (key.name === 'd') {
+        console.log('tiltRight');
+        d.tiltRight({ steps: STEPS });
+        cooldown();　
+      }
+
+      // 上昇
+      else if (key.name === 'up') {
+        console.log('up');
+        d.up({ steps: STEPS * 2.5 });
+        cooldown();　
+
+        // 下降
+      } else if (key.name === 'down') {
+        console.log('down');
+        d.down({ steps: STEPS * 2.5 });
+        cooldown();
+      }
+
+      // 左旋回
+      else if (key.name === 'left') {
+        console.log('turnLeft');
+        d.turnLeft({ steps: STEPS });
+        cooldown();
+      }
+
+      // 右旋回
+      else if (key.name === 'right') {
+        console.log('turnRight');
+        d.turnRight({ steps: STEPS });
+        cooldown();
+      }
+
+      // 前方宙返り
+      else if (key.name === 'i') {
+        console.log('frontFlip');
+        d.frontFlip({ steps: STEPS });
+        cooldown();
+      }
+
+      // 後方宙返り
+      else if (key.name === 'k') {
+        console.log('backFlip');
+        d.backFlip({ steps: STEPS });
+        cooldown();
+      }
+
+      // 左に宙返り
+      else if (key.name === 'j') {
+        console.log('leftFlip');
+        d.leftFlip({ steps: STEPS });
+        cooldown();
+      }
+
+      // 右に宙返り
+      else if (key.name === 'l') {
+        console.log('rightFlip');
+        d.rightFlip({ steps: STEPS });
+        cooldown();
+      }
+
+      // 着陸
+      else if (key.name === 'q') {　
+        console.log('land');　
+        d.land();
+      }
+
+      // 接続解除
+      else if (key.name === 'x') {　
+        console.log('disconnect');　
+        d.disconnect();　
+        process.stdin.pause();　
+        process.exit();　
+      }
+
+      // 3秒後に緊急停止
+      else if (key.name === 'e') {　
+        console.log('emergency');
+        d.emergency();
+        setTimeout(() => {
+          process.exit();
+        }, 3000);　
+      }
+
+    }
+  });
