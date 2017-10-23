@@ -1,7 +1,7 @@
 自動操縦でドローンを飛ばしてみよう
 ==================================================
 
-これから、ドローンを自動操縦するプログラムのプログラムを作成します
+これから、ドローンを自動操縦するプログラムを作成します
 
 autoPilotメソッドの追加
 -------------------------------------------
@@ -14,30 +14,39 @@ autoPilotメソッドの追加
   function autoPilot() {
 
       temporal.queue([
+
+      　 // ５秒後に離陸
         {
           delay: 5000,
           task: function () {
             d.takeOff();
-            d..flatTrim();
+            d.flatTrim();
           }
         },
+
+        // 3秒後に前進
         {
           delay: 3000,
           task: function () {
             d.forward({steps: 12});
           }
         },
+
+        // ５秒後に着陸
         {
           delay: 5000,
           task: function () {
             d.land();
           }
         },
+
+        // ５秒後に接続解除
         {
           delay: 5000,
           task: function () {
-            d.clear();
-            d.exit(0);
+            d.disconnect();
+            temporal.clear();
+            process.exit(0);
           }
         }
       ]);

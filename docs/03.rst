@@ -10,13 +10,13 @@
 ドローンのUUIDを調べよう
 -------------------------------------------
 
-search.js　実行してみましょう。
+discover.js　実行してみましょう。
 
 下記コマンドをコマンドプロンプトから実行してください。
 
 .. code-block:: none
 
-  node search.js
+  node discover.js
 
 周りに存在する、BLEデバイス一覧が表示されれば、成功です。
 
@@ -55,8 +55,7 @@ search.js　実行してみましょう。
 
 .. code-block:: none
 
-  Configured for Rolling Spider!  RS_R023406
-  RS_****** => Connected!!
+  Connected to drone => RS_XXXXXX
 
 あとはキーボードで以下のアサインされているキーを押せば操作できます。
 
@@ -82,3 +81,7 @@ search.js　実行してみましょう。
   x      接続解除        d.disconnect()
   m      緊急停止        d.emergency()
   =====  ============= ===============
+
+.. warning::
+
+  **ホイールをつけている時には、宙返りは行わないでください！**

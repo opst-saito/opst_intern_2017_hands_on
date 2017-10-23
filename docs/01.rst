@@ -80,7 +80,6 @@ node-rolling-spider はドローンと Bluetooth でやりとりできるモジ�
 
   npm install rolling-spider
 
-
 .. note::
 
   * 黄色い文字で「WARN」がいくつか出てくると思いますが、大丈夫です
@@ -96,7 +95,6 @@ temporal はプログラムをでシーケンシャルに実行できるモジ�
 .. code-block:: none
 
   npm install temporal
-
 
 Bluetooth アダプタの設定
 -------------------------------------------

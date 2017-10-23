@@ -3,7 +3,7 @@ Node.jsプログラムを書いてみよう
 
 これから、以下の2つのプログラムを作成します
 
-- search.js　→ドローンのUUID調べるプログラム
+- discover.js　→ドローンのUUID調べるプログラム
 - controller.js　→ドローンを実際に操作するプログラム
 
 
@@ -34,7 +34,7 @@ mkdirコマンドでdroneディレクトリを作成して、その中に移動�
 search.jsの作成
 -------------------------------------------
 
-以下のコードをテキストエディタで入力し、「search.js」として保存します。
+以下のコードをテキストエディタで入力し、「discover.js」として保存します。
 
 .. code-block:: js
 
@@ -48,6 +48,7 @@ search.jsの作成
 
   //BLE デバイス検索をする関数
   const discovered = (peripheral) => {
+
       const device = {
           name: peripheral.advertisement.localName,
           uuid: peripheral.uuid,
@@ -94,6 +95,7 @@ controller.jsの作成
   var ACTIVE = true;
   var STEPS = 5;
   var temporal = require('temporal');
+
   //DronのUUIDに書き換えましょう
   var d = new RollingSpider({ uuid: "*****************"});
 
@@ -107,19 +109,16 @@ controller.jsの作成
 
   // ドローンとの接続
   d.connect(function() {
-    d.setup(function() {　　
-      console.log('Configured for Rolling Spider! ', d.name);　　
+    d.setup(function() {　　　
       d.flatTrim();　　
       d.startPing();　　
-      d.flatTrim();　　
-      setTimeout(function() {　　　
-        console.log(d.name + ' => Connected!!');　　　
-        ACTIVE = true;　　
-      }, 1000);　
+      d.flatTrim();　
+      console.log('Connected to drone => ', d.name);
+      ACTIVE = true;
     });
   });
 
-  // キーボードからの入力にイベント
+  // キーボードからの入力イベント
   process.stdin.on('keypress', function(ch, key) {
     console.log('got "keypress" => ', key);　
     if (ACTIVE && key) {
@@ -163,24 +162,24 @@ controller.jsの作成
         d.up({ steps: STEPS * 2.5 });
         cooldown();　
 
-        // 下降
+      // 下降
       } else if (key.name === 'down') {
         console.log('down');
         d.down({ steps: STEPS * 2.5 });
         cooldown();
       }
 
-      // 左旋回
+      // ９０°左旋回
       else if (key.name === 'left') {
         console.log('turnLeft');
-        d.turnLeft({ steps: STEPS });
+        d.turnLeft({ steps: 25 });
         cooldown();
       }
 
-      // 右旋回
+      // ９０°右旋回
       else if (key.name === 'right') {
         console.log('turnRight');
-        d.turnRight({ steps: STEPS });
+        d.turnRight({ steps: 25 });
         cooldown();
       }
 
