@@ -12,14 +12,14 @@
 
 これらのソフトウェアを一つ一つインストールしていきましょう。
 
-PowerShellを起動する
+Power Shell を起動する
 -------------------------------------------
 
-デスクトップのWindowsマークにマウスカーソルをもっていき右クリックします。
+タスクバーの左下にある検索フォームに「pow」と入力してください。
 
-.. image:: images/intern_00_open_command_prompt.png
+.. image:: images/intern_00_open_powershell.png
 
-「PowerShell」をクリックするとPowerShellが起動します。
+表示される「Windows PowerShell」をクリックするとが PowerShell 起動します。
 
 .. note::
 
