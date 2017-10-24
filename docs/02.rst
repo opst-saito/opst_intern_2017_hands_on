@@ -31,7 +31,7 @@ mkdirコマンドでdroneディレクトリを作成して、その中に移動�
 
 このdroneディレクトリ内でプログラムを作っていきましょう
 
-search.jsの作成
+discover.jsの作成
 -------------------------------------------
 
 以下のコードをテキストエディタで入力し、「discover.js」として保存します。
@@ -106,6 +106,7 @@ controller.jsの作成
       ACTIVE = true;
     }, STEPS);
   }
+
 
   // ドローンとの接続
   d.connect(function() {

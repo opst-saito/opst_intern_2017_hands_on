@@ -12,7 +12,7 @@
 
 discover.js　実行してみましょう。
 
-下記コマンドをコマンドプロンプトから実行してください。
+下記コマンドを実行してください。
 
 .. code-block:: none
 
@@ -45,7 +45,7 @@ discover.js　実行してみましょう。
 
 先ほどのUUIDを使い、controller.js のxxxxxxxxxxxxとなっている部分を書き換えましょう。
 
-書き換えたら下記コマンドをコマンドプロンプトから実行してください。
+書き換えたら、下記コマンドを実行してください。
 
 .. code-block:: none
 
@@ -65,18 +65,18 @@ discover.js　実行してみましょう。
   キー    動作           メソッド
   =====  ============= ===============
   t      離陸           d.takeOff()
-  w      前進           d.forward()
-  s      後退           d.backward()
-  a      左水平移動      d.tiltLeft()
-  d      右水平移動      d.tiltRight()
-  ↑      上昇           d.up()
-  ↓      下降           d.down()
-  ←      左旋回         d.turnLeft()
-  →      右旋回         d.turnRight()
-  i      前方宙返り      d.frontFlip()
-  k      後方宙返り      d.backFlip()
-  j      左に宙返り      d.leftFlip()
-  l      右に宙返り      d.rightFlip()
+  w      前進           d.forward({ steps: 1〜100 })
+  s      後退           d.backward({ steps: 1〜100 })
+  a      左水平移動      d.tiltLeft({ steps: 1〜100 })
+  d      右水平移動      d.tiltRight({ steps: 1〜100 })
+  ↑      上昇           d.up({ steps: 1〜100 })
+  ↓      下降           d.down({ steps: 1〜100 })
+  ←      左旋回         d.turnLeft({ steps: 1〜100 })
+  →      右旋回         d.turnRight({ steps: 1〜100 })
+  i      前方宙返り      d.frontFlip({ steps: 1〜100 })
+  k      後方宙返り      d.backFlip({ steps: 1〜100 })
+  j      左に宙返り      d.leftFlip({ steps: 1〜100 })
+  l      右に宙返り      d.rightFlip({ steps: 1〜100 })
   q      着陸           d.land()
   x      接続解除        d.disconnect()
   m      緊急停止        d.emergency()
