@@ -28,7 +28,7 @@ autoPilotメソッドの追加
         {
           delay: 3000,
           task: function () {
-            d.forward({steps: 12});
+            d.forward({steps: 20});
           }
         },
 
@@ -45,6 +45,7 @@ autoPilotメソッドの追加
           delay: 5000,
           task: function () {
             d.disconnect();
+            console.log('Disconnect!!');
             temporal.clear();
             process.exit(0);
           }
@@ -53,16 +54,16 @@ autoPilotメソッドの追加
   }
 
 次に以下のコードを追加します。
+このコードはキーボードからの入力を受けるため process.stdin.on('keypress', function (ch, key) {} の中に追加してください。
 
 .. code-block:: js
 
   // 自動操縦
   else if (key.name === 'b') {
-    console.log('autoPilot');
+    console.log('Auto Pilot Start!!');
     autoPilot();
   }
 
-このコードはキーボードからの入力を受けるため process.stdin.on('keypress', function (ch, key) {} の中に追加してください。
 
 追加したら、下記コマンドを実行し、キーボードの”b”を押してみましょう。
 

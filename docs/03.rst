@@ -10,15 +10,13 @@
 ドローンのUUIDを調べよう
 -------------------------------------------
 
-discover.js　実行してみましょう。
+findDrone.js　実行してみましょう。
 
 下記コマンドを実行してください。
 
 .. code-block:: none
 
-  node discover.js
-
-周りに存在する、BLEデバイス一覧が表示されれば、成功です。
+  node findDrone.js
 
 .. code-block:: none
  :emphasize-lines: 8
@@ -30,15 +28,18 @@ discover.js　実行してみましょう。
   29:Alta HR(1577e5a201c4458fbeccea0b338902d2) RSSI-64
   30:undefined(133c66539db043b6a1c344f060d60103) RSSI-71
   31:undefined(678774b28d2f4e528c75e17a067759f2) RSSI-72
-  32:RS_R023406(fcb928c655164cc0966f6c38f046eb5c) RSSI-32
+  32:Mambo_640552(bcddd2d5f9bb47e7be84ed2e4b3b9361) RSSI-35
   33:undefined(514f76a1d8e44e46aedd496ca41bfc5c) RSSI-76
   34:undefined(7561ff0ec3fd4f7c9d97cd6eff6085b4) RSSI-59
   35:undefined(aceb1517cf154ca58cca09e9347dc201) RSSI-77
   36:undefined(9c5d9f0e827540bbb30cfa6e799c5b0a) RSSI-72
 
-名前が”RS_***********”がドローンの名前になります。
+名前が”Mambo_***********”がドローンの名前になります。
 
 カッコ内に書かれている UUID をコピーしてください。
+
+見つかったら、control + c で処理をストップさせてください。
+
 
 ドローンを操作してみよう
 -------------------------------------------
@@ -55,7 +56,7 @@ discover.js　実行してみましょう。
 
 .. code-block:: none
 
-  Connected to drone => RS_XXXXXX
+  Connected to drone => XXXXXX
 
 あとはキーボードで以下のアサインされているキーを押せば操作できます。
 
@@ -84,4 +85,4 @@ discover.js　実行してみましょう。
 
 .. warning::
 
-  **ホイールをつけている時には、宙返りは行わないでください！**
+  **宙返りは行う場合は、ドローンからアクセサリーを外してください！**

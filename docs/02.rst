@@ -3,7 +3,7 @@ Node.jsプログラムを書いてみよう
 
 これから、以下の2つのプログラムを作成します
 
-- discover.js　→ドローンのUUID調べるプログラム
+- findDrone.js　→ドローンのUUID調べるプログラム
 - controller.js　→ドローンを実際に操作するプログラム
 
 
@@ -26,15 +26,15 @@ mkdirコマンドでdroneディレクトリを作成して、その中に移動�
 
 .. code-block:: none
 
-  mkdir dron
-  cd dron
+  mkdir drone
+  cd drone
 
 このdroneディレクトリ内でプログラムを作っていきましょう
 
-discover.jsの作成
+findDrone.jsの作成
 -------------------------------------------
 
-以下のコードをテキストエディタで入力し、「discover.js」として保存します。
+以下のコードをテキストエディタで入力し、「findDrone.js」として保存します。
 
 .. code-block:: js
 
@@ -56,7 +56,6 @@ discover.jsの作成
       };
 
       knownDevices.push(device);
-
       console.log(`${knownDevices.length}:${device.name}(${device.uuid}) RSSI${device.rssi}`);
 
   }
@@ -67,11 +66,10 @@ discover.jsの作成
       noble.on('discover', discovered);
   }
 
-  // BLE 検索開始
-  if(noble.state === 'poweredOn') {
-    scanStart();
-  } else {
-    noble.on('stateChange', scanStart);
+  if(noble.state === 'poweredOn'){
+      scanStart();
+  }else{
+      noble.on('stateChange', scanStart);
   }
 
 
