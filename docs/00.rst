@@ -19,5 +19,5 @@ Node.js を使用し、Blutoothe 経由で ドローンをパソコンから操�
 準備するものをご確認ください
 
 - ノートPC（Lenovo ThinkPad X250; Windows 10 Home)
-- ドローン　(パロット ローリングスパイダー or Mambo)
+- ドローン　(パロット Rolling Spider or Mambo)
 - Bluetooth USBアダプター (iBUFFALO BSBT4D09BK)
